@@ -1,0 +1,9 @@
+/* home.css */
+.home-background {
+  background-image: url('/jjj.png'); /* Confirm this path is correct */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh; /* Make sure it covers full viewport height */
+  width: 100%;
+}
