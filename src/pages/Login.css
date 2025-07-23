@@ -1,16 +1,16 @@
-/* Fullscreen black background with center alignment */
-
-
-/* Centered login box */
 .form-container {
-  background-color: #1f2937; /* darker background for contrast */
-  padding: 2.5rem; /* increased padding for better spacing */
-  border-radius: 0.75rem; /* rounded corners */
+  background-color: #1f2937;
+  padding: 2.5rem;
+  border-radius: 0.75rem;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
   width: 100%;
   max-width: 400px;
-  color: #f3f4f6; /* light text color */
+  color: #f3f4f6;
+
+  /* Centering fix */
+  position: relative;
 }
+
 
 /* Title styling */
 .title {
@@ -114,19 +114,24 @@
   justify-content: center;
   margin-top: 1rem;
 }
-
 .icon {
   background: transparent;
   border: none;
-  margin: 0 0.5rem;
-  padding: 0.75rem;
+  margin: 0 0.95rem;      /* Reduced margin */
+  padding: 0.2rem;         /* Reduced padding */
   border-radius: 50%;
   cursor: pointer;
   transition: background-color 0.2s;
+  display: inline-flex;    /* Ensures proper alignment */
+  align-items: center;
+  justify-content: center;
 }
+
 
 .icon:hover {
   background-color: #374151;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8); /* Adds glow effect */
+
 }
 
 .icon svg {
@@ -139,9 +144,11 @@
 .signup {
   text-align: center;
   margin-top: 1.5rem;
-  font-size: 0.75rem;
+  font-size: 0.875rem;
   color: #9ca3af;
+  padding-bottom: 0.5rem; /* Optional, for better spacing */
 }
+
 
 .signup a {
   color: #f3f4f6;
@@ -154,23 +161,19 @@
 }
 
 /* Full container for page, no restrictions */
-.page-wrapper {
-  position: relative;
-  height: 100vh;
-  width: 100vw;
-  overflow: hidden; /* prevent scrollbars from background */
-}
+
 
 /* Keep your existing styles for login-page */
 .login-page {
   display: flex;
-  align-items: center;
   justify-content: center;
-  height: 100%; /* fill parent container */
-  width: 100%; /* fill parent container */
-  position: relative; /* ensure stacking context */
-  z-index: 1; /* above background */
+  align-items: center;
+  height: 100vh; /* full height of screen */
+  width: 100vw;
+  position: relative;
+  z-index: 1;
 }
+
 
 /* Keep your existing form-container styles, no change needed */
 
@@ -185,27 +188,60 @@
 }
 
 .page-wrapper {
-  width: 100vw;
-  height: 100vh;
-  position: relative;
-  overflow: hidden;
-}
-
-.login-page {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 100vh; /* full viewport height */
+  position: relative;
+  z-index: 10; /* to appear above background */
 }
 
-.form-container {
-  z-index: 2;
-  background: rgba(0, 0, 0, 0.6);
-  padding: 2rem;
-  border-radius: 1rem;
-  backdrop-filter: blur(10px);
-  color: white;
+.login-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  z-index: 1;
 }
+
+
+
+
+/* Flip container (holds both front and back sides) */
+.flip-container {
+  perspective: 1000px;
+  width: 100%;
+  max-width: 400px;
+  position: relative;
+}
+
+/* Inner flipper */
+.flipper {
+  position: relative;
+  width: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.8s ease-in-out;
+}
+
+/* When flipped, rotate */
+.flipped .flipper {
+  transform: rotateY(180deg);
+}
+
+/* Both front and back share base styles */
+.front, .back {
+  width: 100%;
+  height: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  backface-visibility: hidden;
+}
+
+/* Back is rotated */
+.back {
+  transform: rotateY(180deg);
+}
+
