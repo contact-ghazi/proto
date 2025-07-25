@@ -1,74 +1,20 @@
-import React, { useEffect, useRef, useState } from "react";
-import * as THREE from "three";
-import "./Login.css";
-import "./Flip.css";
-import TransNavbar from "../Components/TransNavbar";
-import { useLocation } from "react-router-dom";
+import React, { useState } from "react";
 import AnimatedGradientLogin from "./AnimatedGradientLogin";
+import "./Flip.css";
+import "./Login.css"; // if you need old styles
 
-function Login() {
-  const vantaRef = useRef(null);
-  const vantaEffect = useRef(null);
+function NLogin() {
+      console.log("NLogin loaded");
+
   const [isSignup, setIsSignup] = useState(false);
 
-
-const location = useLocation();
-
-useEffect(() => {
-  const script = document.createElement("script");
-  script.src = "https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.clouds.min.js";
-  script.async = true;
-
-  script.onload = () => {
-    if (window.VANTA) {
-      vantaEffect.current = window.VANTA.CLOUDS({
-        el: vantaRef.current,
-        THREE: THREE,
-        mouseControls: false,
-        touchControls: false,
-        gyroControls: false,
-        skyColor: 0x111111,
-        cloudColor: 0xffffff,
-        sunColor: 0xcccccc,
-        sunGlareColor: 0x999999,
-        speed: 0.4,
-        zoom: 0.7,
-      });
-    }
-  };
-
-  document.body.appendChild(script);
-
-  // ✅ CLEANUP WHEN ROUTE CHANGES
-  return () => {
-    if (vantaEffect.current) {
-      vantaEffect.current.destroy();
-      vantaEffect.current = null;
-    }
-    if (vantaRef.current) {
-      vantaRef.current.innerHTML = "";
-    }
-    document.body.removeChild(script);
-    delete window.VANTA;
-  };
-}, [location.pathname]); // ✅ Re-run when route changes
-
-
-
   return (
-    <div className="relative min-h-screen w-screen">
-  <div ref={vantaRef} className="absolute inset-0 h-full w-full z-0"></div>
-
-
-      <div className="absolute top-0 left-0 w-full z-20">
-  <TransNavbar />
-</div>
-
-  <div className="relative z-10 flex items-center justify-center min-h-screen">
+    <AnimatedGradientLogin>
+      <div className="relative z-10 flex items-center justify-center min-h-screen">
         <div className={`flip-container ${isSignup ? "flipped" : ""}`}>
           <div className="flipper">
             {/* FRONT: LOGIN FORM */}
-            <div className="form-container front bg-white/80 backdrop-blur-lg shadow-xl p-8 rounded-md">
+                <div className="form-container front bg-white/80 backdrop-blur-lg shadow-xl p-8 rounded-md border border-white/30">
               <p className="title text-2xl font-bold mb-4">Login</p>
               <form className="form space-y-4">
                 <div className="input-group">
@@ -164,9 +110,9 @@ useEffect(() => {
           </div>
         </div>
       </div>
-    </div>
 
+    </AnimatedGradientLogin>
   );
 }
 
-export default Login;
+export default NLogin;

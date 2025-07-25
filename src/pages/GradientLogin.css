@@ -1,0 +1,70 @@
+html, body {
+  overflow-x: hidden; /* ✅ Remove horizontal scroll */
+}
+
+.gradient-bg {
+  background: linear-gradient(135deg, #1a1a1a, #333333);
+  min-height: 100vh;
+  width: 100%;
+  overflow: hidden; /* ✅ Prevent scroll */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#tsparticles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+}
+
+.form-container {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Optional moving waves */
+.gradient-bg::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 10%, transparent 20%);
+  background-size: 15% 15%;
+  animation: floatingDots 8s linear infinite;
+}
+
+@keyframes floatingDots {
+  0% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(10%, 10%);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+

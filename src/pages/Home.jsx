@@ -1,6 +1,25 @@
 import Navbar from "../Components/Navbar";
+import FeaturesSection from "../Components/FeaturesSection";
+import ImmediateConsult from "../Components/ImmediateConsult";
+import React, { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+
 
 function Home() {
+  const location = useLocation();
+  useEffect(() => {
+  const params = new URLSearchParams(location.search);
+  if (params.get("scroll") === "immediate") {
+    const section = document.getElementById("immediate-consult");
+    if (section) {
+      section.scrollIntoView({ behavior: "auto" });
+    }
+  } else {
+    // If no param, just ensure we start at top
+    window.scrollTo(0, 0);
+  }
+}, [location]);
+
   return (
     <div className="relative min-h-screen bg-black">
       {/* Background Image */}
@@ -21,9 +40,15 @@ function Home() {
             <p className="text-lg">We connect you with instant legal help.</p>
           </div>
         </div>
+
+               {/* Features Section (Scroll Down to See) */}
+        <FeaturesSection />
+      {/* Immediate Consult Section */}
+        <ImmediateConsult />
       </div>
     </div>
   );
 }
+
 
 export default Home;
