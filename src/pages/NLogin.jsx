@@ -7,10 +7,15 @@ function NLogin() {
       console.log("NLogin loaded");
 
   const [isSignup, setIsSignup] = useState(false);
+ const [isLoggedIn, setIsLoggedIn] = useState(false); // After login
+const [showClientForm, setShowClientForm] = useState(false); // After signup
+
 
   return (
     <AnimatedGradientLogin>
       <div className="relative z-10 flex items-center justify-center min-h-screen">
+        {!showClientForm ? (
+        !isLoggedIn ? (
         <div className={`flip-container ${isSignup ? "flipped" : ""}`}>
           <div className="flipper">
             {/* FRONT: LOGIN FORM */}
@@ -28,7 +33,14 @@ function NLogin() {
                     <a href="#" className="text-blue-500 text-sm">Forgot Password?</a>
                   </div>
                 </div>
-                <button className="sign w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">Sign in</button>
+<button
+  type="button"
+  onClick={() => setIsLoggedIn(true)}
+  className="sign w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+>
+  Sign in
+</button>
+
               </form>
 
               <div className="social-message flex items-center my-6">
@@ -100,15 +112,76 @@ function NLogin() {
                   <input type="checkbox" id="isLawyer" className="mr-2" />
                   <label htmlFor="isLawyer" className="text-sm">I am a lawyer</label>
                 </div>
-                <button className="sign w-full bg-green-600 text-white py-2 rounded hover:bg-green-700">Sign Up</button>
+<button
+  type="button"
+  onClick={() => {
+    setIsSignup(false); // flip back to login
+    setShowClientForm(true); // show client form
+  }}
+  className="sign w-full bg-green-600 text-white py-2 rounded hover:bg-green-700"
+>
+  Sign Up
+</button>
+
               </form>
               <p className="signup mt-6 text-sm text-center">
                 Already have an account?{" "}
                 <button className="text-blue-500" onClick={() => setIsSignup(false)}>Login</button>
-              </p>
+             </p>
             </div>
           </div>
         </div>
+        ) : (
+          <h1 className="text-white text-3xl">Welcome Back!</h1>
+        )
+      ):(
+      // Show Client Details Form
+      <div className="form-container bg-white/80 backdrop-blur-lg shadow-xl p-8 rounded-md border border-white/30 w-[400px] max-w-md mx-auto">
+  <p className="title text-2xl font-bold mb-4 text-center">Client Details</p>
+  <form className="form space-y-4">
+    <div className="input-group">
+      <label className="block text-sm font-medium">Full Name</label>
+      <input
+        type="text"
+        className="w-full p-3 border rounded bg-gray-900 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        placeholder="Enter your full name"
+      />
+    </div>
+    <div className="input-group">
+      <label className="block text-sm font-medium">Email</label>
+      <input
+        type="email"
+        className="w-full p-3 border rounded bg-gray-900 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        placeholder="Enter your email"
+      />
+    </div>
+    <div className="input-group">
+      <label className="block text-sm font-medium">Contact</label>
+      <input
+        type="tel"
+        className="w-full p-3 border rounded bg-gray-900 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        placeholder="Enter your contact number"
+      />
+    </div>
+    <div className="input-group">
+      <label className="block text-sm font-medium">Case Category</label>
+      <select className="w-full p-3 border rounded bg-gray-900 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <option>Select Category</option>
+        <option>Civil</option>
+        <option>Criminal</option>
+        <option>Corporate</option>
+        <option>Family</option>
+        <option>Others</option>
+      </select>
+    </div>
+    <button className="w-full bg-purple-600 text-white py-3 rounded hover:bg-purple-700 transition">
+      Submit
+    </button>
+  </form>
+</div>
+
+
+    )}
       </div>
 
     </AnimatedGradientLogin>
