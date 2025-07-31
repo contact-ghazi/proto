@@ -3,6 +3,7 @@ import FeaturesSection from "../Components/FeaturesSection";
 import ImmediateConsult from "../Components/ImmediateConsult";
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import Footer from "../Pages/Footer";
 
 
 function Home() {
@@ -45,6 +46,9 @@ function Home() {
         <FeaturesSection />
       {/* Immediate Consult Section */}
         <ImmediateConsult />
+
+        {/* ✅ Footer only on Home page */}
+        <Footer />
       </div>
     </div>
   );

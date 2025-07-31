@@ -3,11 +3,10 @@ import { Link } from "react-router-dom";
 function Navbar({ transparent = false }) {
   return (
     <nav
-      className={`${
-        transparent
+      className={`${transparent
           ? "bg-transparent absolute top-0 left-0 w-full z-50"
           : "bg-white/30 backdrop-blur-md shadow-lg"
-      } px-8 pt-2 pb-4 flex justify-between items-center`}
+        } px-8 pt-2 pb-4 flex justify-between items-center`}
     >
       <h1 className="text-2xl font-bold text-white">Advocate AI</h1>
       <div className="flex space-x-8 text-base font-medium items-center">
@@ -20,7 +19,13 @@ function Navbar({ transparent = false }) {
         </Link>
 
         {/* About */}
-        <span className="text-white opacity-50 cursor-not-allowed">About</span>
+        <Link
+          to="/about"
+          className="text-white transition duration-300 hover:text-white hover:drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]"
+        >
+          About
+        </Link>
+
 
         {/* Immediate Consult */}
         <Link
@@ -40,11 +45,11 @@ function Navbar({ transparent = false }) {
 
         {/* Sign In / Sign Up */}
         <a
-  href="/login"
-  className="text-white transition duration-300 hover:text-white hover:drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]"
->
-  Sign In / Sign Up
-</a>
+          href="/login"
+          className="text-white transition duration-300 hover:text-white hover:drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]"
+        >
+          Sign In / Sign Up
+        </a>
 
       </div>
     </nav>
