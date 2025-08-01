@@ -1,52 +1,63 @@
 import React from "react";
 import "./About.css";
-import TransNavbar from "../components/TransNavbar";  // adjust path if needed
+import TransNavbar from "../Components/TransNavbar";
+import TransNavbarAbout from "../Components/TransNavbarAbout";
 import FounderImage from "../assets/Founder.jpg";
+import useIsMobile from "../hooks/useIsMobile";
 
 function About() {
-    return (
-        <div className="about-container">
-             <TransNavbar /> {/* ✅ Navbar added */}
-            {/* Main Info Section */}
-            <div className="about-container">
-            {/* Main Info Section */}
-            <div className="about-card">
-                {/* Left Section - Founder Image & Name */}
-                <div className="about-left">
-                    <img
-                        src={FounderImage}
-                        alt="Founder"
-                        className="about-logo-rect"
-                    />
-                    <h3 className="founder-name">Huzaifa Taj</h3>
-                </div>
+  const isMobile = useIsMobile();
 
-                {/* Right Section - Founder Bio + Company Details */}
-                <div className="about-right">
-                    <div className="company-about">
-                        <h1 className="about-title">About Advocate AI</h1>
-                        <p className="about-text">
-                            Advocate AI is an innovative platform that connects clients
-                            with legal professionals in real-time. Our mission is to make
-                            legal support accessible, fast, and reliable.
-                        </p>
-                        <p className="about-text">
-                            With features like <strong>emergency lawyer chat</strong>,{" "}
-                            <strong>case tracking</strong>, and{" "}
-                            <strong>document assistance</strong>, we simplify your legal
-                            journey. Our AI-driven system ensures privacy, security, and
-                            verified legal guidance.
-                        </p>
-                    </div>
-                    <h3 className="founder-title">Founder & CEO</h3>
-                    <p className="founder-desc">
-                        Huzaifa Taj is passionate about blending law and technology to make legal
-                        solutions more accessible. He
-                        leads Advocate AI in creating a smarter legal future.
-                    </p>
-                </div>
-            </div>
+  return (
+    <div className="about-container">
+      {/* ✅ Desktop Navbar */}
+      {!isMobile && <TransNavbar />}
+
+      {/* ✅ Mobile Top Bar */}
+{isMobile && (
+  <div className="w-full bg-transparent text-white text-center font-semibold text-4xl tracking-wide m-0 p-0 leading-none mb-3">
+    Advocate AI
+  </div>
+)}
+
+
+
+
+      {/* ✅ Mobile Bottom Navbar */}
+      {isMobile && <TransNavbarAbout />}
+
+      {/* Main Info Section */}
+      <div className={`about-card ${isMobile ? "mt-2" : "mt-10"}`}>
+
+        <div className="about-left">
+          <img src={FounderImage} alt="Founder" className="about-logo-rect" />
+          <h3 className="founder-name">Huzaifa Taj</h3>
         </div>
+
+        <div className="about-right">
+          <div className="company-about">
+            <h1 className="about-title">About Advocate AI</h1>
+            <p className="about-text">
+              Advocate AI is an innovative platform that connects clients with
+              legal professionals in real-time. Our mission is to make legal
+              support accessible, fast, and reliable.
+            </p>
+            <p className="about-text">
+              With features like <strong>emergency lawyer chat</strong>,{" "}
+              <strong>case tracking</strong>, and{" "}
+              <strong>document assistance</strong>, we simplify your legal
+              journey. Our AI-driven system ensures privacy, security, and
+              verified legal guidance.
+            </p>
+          </div>
+          <h3 className="founder-title">Founder & CEO</h3>
+          <p className="founder-desc">
+            Huzaifa Taj is passionate about blending law and technology to make
+            legal solutions more accessible. He leads Advocate AI in creating a
+            smarter legal future.
+          </p>
+        </div>
+      </div>
 
             {/* Services Section */}
             <div className="our-services">
@@ -126,6 +137,7 @@ function About() {
 
                 </div>
             </section>
+            
 
         </div>
     );

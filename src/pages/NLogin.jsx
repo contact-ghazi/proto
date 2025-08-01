@@ -1,10 +1,15 @@
 import React, { useState } from "react";
+import TransNavbarAbout from "../Components/TransNavbarAbout";
+import useIsMobile from "../hooks/useIsMobile";
+
 import AnimatedGradientLogin from "./AnimatedGradientLogin";
 import "./Flip.css";
 import "./Login.css"; // if you need old styles
 
 function NLogin() {
       console.log("NLogin loaded");
+      const isMobile = useIsMobile();
+
 
   const [isSignup, setIsSignup] = useState(false);
  const [isLoggedIn, setIsLoggedIn] = useState(false); // After login
@@ -13,7 +18,11 @@ const [showClientForm, setShowClientForm] = useState(false); // After signup
 
   return (
     <AnimatedGradientLogin>
-      <div className="relative z-10 flex items-center justify-center min-h-screen">
+      {isMobile && <TransNavbarAbout />}
+
+      <div className={`relative z-10 flex items-center justify-center min-h-screen ${isMobile ? "pb-20" : ""}`}>
+
+        
         {!showClientForm ? (
         !isLoggedIn ? (
         <div className={`flip-container ${isSignup ? "flipped" : ""}`}>

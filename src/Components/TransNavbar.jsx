@@ -41,7 +41,7 @@ function TransNavbar() {
           onClick={() => handleNavigation("/?scroll=immediate")}
           className="text-white transition duration-300 hover:text-white hover:drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]"
         >
-          Immediate Consult
+          QuickConsult
         </button>
 
         {/* Sign In / Sign Up */}
@@ -49,7 +49,7 @@ function TransNavbar() {
           onClick={() => handleNavigation("/login")}
           className="text-white transition duration-300 hover:text-white hover:drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]"
         >
-          Sign In / Sign Up
+          Sign In
         </button>
 
       </div>
