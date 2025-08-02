@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import TransNavbarAbout from "../Components/TransNavbarAbout";
 import useIsMobile from "../hooks/useIsMobile";
+import { useNavigate } from "react-router-dom";
 
 import AnimatedGradientLogin from "./AnimatedGradientLogin";
 import "./Flip.css";
@@ -9,6 +10,8 @@ import "./Login.css"; // if you need old styles
 function NLogin() {
       console.log("NLogin loaded");
       const isMobile = useIsMobile();
+      const navigate = useNavigate();
+
 
 
   const [isSignup, setIsSignup] = useState(false);
@@ -44,7 +47,11 @@ const [showClientForm, setShowClientForm] = useState(false); // After signup
                 </div>
 <button
   type="button"
-  onClick={() => setIsLoggedIn(true)}
+  onClick={() => {
+  setIsLoggedIn(true);
+  navigate("/dashboard"); // ✅ Redirect to lawyer selection page
+}}
+
   className="sign w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
 >
   Sign in
@@ -124,9 +131,9 @@ const [showClientForm, setShowClientForm] = useState(false); // After signup
 <button
   type="button"
   onClick={() => {
-    setIsSignup(false); // flip back to login
-    setShowClientForm(true); // show client form
-  }}
+  navigate("/dashboard"); // ✅ Redirect to lawyer selection page after signup
+}}
+
   className="sign w-full bg-green-600 text-white py-2 rounded hover:bg-green-700"
 >
   Sign Up

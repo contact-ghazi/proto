@@ -1,0 +1,75 @@
+.lawyer-card {
+  width: 80%;
+  max-width: 900px;
+  background: #1f1f2e;
+  padding: 25px;
+  border-radius: 15px;
+  text-align: center;
+  color: #fff;
+  margin: 20px auto;
+  border: 1px solid rgba(147, 51, 234, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+
+.lawyer-card.active {
+  transform: scale(1.08);
+  box-shadow: 0 12px 35px rgba(147, 51, 234, 0.5);
+  background: linear-gradient(135deg, #2a2a3b, #1a1a28);
+}
+
+.lawyer-image {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  border: 4px solid #9333ea;
+  margin-bottom: 15px;
+}
+
+.lawyer-card h3 {
+  font-size: 26px;
+  margin-bottom: 8px;
+}
+
+.type {
+  font-size: 18px;
+  color: #a78bfa;
+  margin-bottom: 8px;
+}
+
+.experience {
+  font-size: 16px;
+  color: #d1d5db;
+  margin-bottom: 12px;
+}
+
+.rating {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 15px;
+}
+
+.star {
+  font-size: 22px;
+  color: #444;
+}
+
+.star.active {
+  color: #facc15; /* Gold */
+}
+
+.select-btn {
+  background: linear-gradient(45deg, #9333ea, #a855f7);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.select-btn:hover {
+  background: linear-gradient(45deg, #a855f7, #9333ea);
+}

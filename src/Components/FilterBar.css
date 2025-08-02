@@ -1,0 +1,78 @@
+.filter-bar {
+  background: linear-gradient(145deg, #0f172a, #1e293b);
+  padding: 20px;
+  border-radius: 14px;
+  margin: 0 auto 24px auto;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+
+  /* Align with lawyer cards */
+  width: 120%; /* Slightly wider than card */
+  max-width: 1000px;
+  margin-left: -45px; /* Perfect centering */
+  
+  /* Force all filters on one line */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.filter-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.filter-header .filter-icon {
+  color: #a855f7;
+  font-size: 1.4rem;
+}
+
+.filter-header h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+/* Controls: Single row */
+.filter-controls {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.filter-controls select,
+.filter-controls input {
+  flex: 1; /* Equal width for all filters */
+  background: #111827;
+  border: 1px solid #374151;
+  color: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: border 0.2s ease;
+  min-width: 0; /* Prevent overflow */
+}
+
+.filter-controls select:focus,
+.filter-controls input:focus {
+  border-color: #a855f7;
+}
+
+.filter-controls option {
+  background: #1f2937;
+  color: #fff;
+}
+
+/* Remove wrapping completely */
+@media (max-width: 1200px) {
+  .filter-controls {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+
+  .filter-controls select,
+  .filter-controls input {
+    flex: 0 0 160px; /* Fixed width on small screens */
+  }
+}
