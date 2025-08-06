@@ -6,6 +6,7 @@ import { useLocation, Link } from "react-router-dom";
 import Footer from "../Pages/Footer";
 import { Home as HomeIcon, Info, MessageSquare, LogIn } from "lucide-react";
 import useIsMobile from "../hooks/useIsMobile";
+import AboutCompany from "../Components/AboutCompany";
 
 function Home() {
   const location = useLocation();
@@ -70,6 +71,7 @@ function Home() {
 
         {/* ✅ Features & Immediate Consult */}
         <FeaturesSection />
+        <AboutCompany />
         <ImmediateConsult />
 
         {/* ✅ Footer */}

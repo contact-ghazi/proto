@@ -1,0 +1,83 @@
+.about-company-section {
+  width: 100%;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.5s ease-in-out;
+  opacity: 0;
+  transform: translateY(80px);
+  overflow: hidden;
+  min-height: 60vh;
+
+  /* ✨ New background: starry or galaxy-like effect */
+  background: radial-gradient(circle at top left, #1f1c2c, #090a0f);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+
+.about-company-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.about-box {
+  width: 100%;
+  height: 100%;
+  margin: 40px;
+  padding: 60px 40px;
+  background: #0b0b0b;
+  border-radius: 20px;
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  /* 🟣 NEON Border and Glow */
+  box-shadow:
+    0 0 10px rgba(74, 144, 226, 0.4),
+    0 0 30px rgba(123, 104, 238, 0.3);
+  border-top: 4px solid;
+  border-bottom: 4px solid;
+  border-image-slice: 1;
+  border-image-source: linear-gradient(90deg, #ff8c00, #00ffe0, #a100ff);
+  border-image: linear-gradient(90deg, #ff8c00, #00ffe0, #a100ff) 1;
+}
+
+.about-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, #4a90e2, #7b68ee);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 25px;
+  letter-spacing: 0.5px;
+}
+
+.about-description {
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: #e0e0e0;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.05);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* ✅ Responsive */
+@media (max-width: 768px) {
+  .about-box {
+    margin: 20px;
+    padding: 40px 20px;
+  }
+
+  .about-title {
+    font-size: 2rem;
+  }
+
+  .about-description {
+    font-size: 1rem;
+  }
+}
