@@ -19,20 +19,13 @@ function TransNavbarAbout() {
       </Link>
 
       {/* Consult */}
-      <a
-        href="#immediate-consult"
-        onClick={(e) => {
-          e.preventDefault();
-          const section = document.getElementById("immediate-consult");
-          if (section) {
-            section.scrollIntoView({ behavior: "smooth" });
-          }
-        }}
-        className="flex flex-col items-center"
-      >
-        <MessageSquare size={22} />
-        <span className="text-xs">Consult</span>
-      </a>
+      <Link
+  to="/?scroll=immediate"
+  className="flex flex-col items-center"
+>
+  <MessageSquare size={22} />
+  <span className="text-xs">Consult</span>
+</Link>
 
       {/* Sign In */}
       <Link to="/login" className="flex flex-col items-center">

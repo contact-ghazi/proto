@@ -13,16 +13,19 @@ function Home() {
   const isMobile = useIsMobile();
 
   useEffect(() => {
+  if (location.pathname === "/") {
     const params = new URLSearchParams(location.search);
     if (params.get("scroll") === "immediate") {
       const section = document.getElementById("immediate-consult");
       if (section) {
-        section.scrollIntoView({ behavior: "auto" });
+        section.scrollIntoView({ behavior: "smooth" }); // ✅ SMOOTH SCROLL
       }
     } else {
-      window.scrollTo(0, 0);
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
-  }, [location]);
+  }
+}, [location]);
+
 
   return (
     <div className="relative min-h-screen bg-black">
