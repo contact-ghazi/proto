@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { FaUserTie, FaUserCheck, FaFileAlt, FaCog, FaComments } from "react-icons/fa";
 import "./Sidebar.css"; // External CSS
 
+
 function Sidebar({ isOpen }) {
   return (
     <div className={`sidebar ${isOpen ? "open" : ""}`}>

@@ -129,3 +129,17 @@
     margin-left: 0;
   }
 }
+
+@media (max-width: 480px) {
+  .lawyer-info h2 {
+    font-size: 1.4rem;
+  }
+
+  .bio {
+    font-size: 0.85rem;
+  }
+
+  .select-btn {
+    width: 100%;
+  }
+}

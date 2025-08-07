@@ -2,17 +2,10 @@
   background: linear-gradient(145deg, #0f172a, #1e293b);
   padding: 20px;
   border-radius: 14px;
-  margin: 0 auto 24px auto;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
-
-  /* Align with lawyer cards */
-  width: 120%; /* Slightly wider than card */
-  max-width: 1000px;
-  margin-left: -45px; /* Perfect centering */
-  
-  /* Force all filters on one line */
-  display: flex;
-  flex-direction: column;
+  width: 100%;
+  max-width: 400px; /* Default for mobile */
+  margin: 0 auto 24px auto;
 }
 
 /* Header */
@@ -34,24 +27,25 @@
   color: #fff;
 }
 
-/* Controls: Single row */
+/* Filter Controls - mobile default */
 .filter-controls {
   display: flex;
-  justify-content: space-between;
-  gap: 10px;
+  flex-direction: column;
+  gap: 12px;
 }
 
+/* Filter Inputs */
 .filter-controls select,
 .filter-controls input {
-  flex: 1; /* Equal width for all filters */
   background: #111827;
   border: 1px solid #374151;
   color: #fff;
-  padding: 10px;
+  padding: 10px 12px;
   border-radius: 8px;
   font-size: 0.95rem;
   transition: border 0.2s ease;
-  min-width: 0; /* Prevent overflow */
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .filter-controls select:focus,
@@ -64,15 +58,89 @@
   color: #fff;
 }
 
-/* Remove wrapping completely */
-@media (max-width: 1200px) {
+/* Scrollable Dropdown for Lawyer Type */
+select[name="type"] {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+/* Scrollable react-select dropdown */
+/* ===============================
+   React Select - Dark Theme Match
+   =============================== */
+
+.react-select-container {
+  width: 100%;
+  font-size: 0.95rem;
+}
+
+.select__control {
+  background-color: #111827 !important;
+  border: 1px solid #374151 !important;
+  color: #fff !important;
+  min-height: 40px !important;
+  border-radius: 8px !important;
+}
+
+.select__control--is-focused {
+  border-color: #a855f7 !important;
+  box-shadow: none !important;
+}
+
+.select__single-value {
+  color: #fff !important;
+}
+
+.select__menu {
+  background-color: #1f2937 !important;
+  color: #fff;
+  max-height: 180px;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+.select__option {
+  background-color: #1f2937;
+  color: #fff;
+  padding: 10px;
+  font-size: 0.95rem;
+}
+
+.select__option--is-focused {
+  background-color: #4b5563;
+}
+
+.select__option--is-selected {
+  background-color: #6d28d9;
+  color: #fff;
+}
+
+.select__indicator-separator {
+  display: none;
+}
+
+
+
+/* Desktop View */
+@media (min-width: 769px) {
+  .filter-bar {
+    max-width: 1050px;
+    margin-left: -26px; /* Slight left shift */
+  }
+
   .filter-controls {
+    flex-direction: row;
     flex-wrap: nowrap;
-    overflow-x: auto;
+    justify-content: space-between;
+    gap: 10px;
   }
 
   .filter-controls select,
   .filter-controls input {
-    flex: 0 0 160px; /* Fixed width on small screens */
+    flex: 1 1 120px;
+    min-width: 100px;
+    max-width: 140px;
+    padding: 8px 10px;
+    font-size: 0.9rem;
   }
 }

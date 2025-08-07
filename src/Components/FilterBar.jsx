@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FaFilter } from "react-icons/fa";
 import "./FilterBar.css";
+import Select from 'react-select';
 
 export default function FilterBar({ onFilterChange }) {
   const [filters, setFilters] = useState({
@@ -29,18 +30,31 @@ export default function FilterBar({ onFilterChange }) {
         {/* Lawyer Type */}
         <select name="type" value={filters.type} onChange={handleChange}>
           <option value="">Type</option>
-          <option value="Criminal">Criminal</option>
-          <option value="Corporate">Corporate</option>
-          <option value="Civil">Civil</option>
-          <option value="Family">Family</option>
+          <option value="Criminal">Criminal Lawyer</option>
+          <option value="Civil">Civil Lawyer</option>
+          <option value="Corporate">Corporate Lawyer</option>
+          <option value="Family">Family Lawyer</option>
+          <option value="Property">Property Lawyer</option>
+          <option value="Labour">Labour & Employment Lawyer</option>
+          <option value="Cyber">Cybercrime Lawyer</option>
+          <option value="Constitutional">Constitutional Lawyer</option>
+          <option value="Intellectual Property">IPR (Intellectual Property) Lawyer</option>
+          <option value="Consumer">Consumer Lawyer</option>
+          <option value="Banking">Banking & Finance Lawyer</option>
+          <option value="Taxation">Taxation Lawyer</option>
+          <option value="Environmental">Environmental Lawyer</option>
+          <option value="Immigration">Immigration Lawyer</option>
+          <option value="NRI">NRI Legal Services</option>
         </select>
+
+
 
         {/* Rating */}
         <select name="rating" value={filters.rating} onChange={handleChange}>
           <option value="">Rating</option>
           <option value="5">5 Stars</option>
-          <option value="4">4 Stars & Up</option>
-          <option value="3">3 Stars & Up</option>
+          <option value="4">4 Stars</option>
+          <option value="3">3 Stars</option>
         </select>
 
         {/* Location */}

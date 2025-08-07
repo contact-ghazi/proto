@@ -6,47 +6,56 @@ import ParticleBackProfile from "../Components/Particlebackprofile";
 import "./Dashboard.css";
 import FilterBar from "../Components/FilterBar";
 import { useState } from "react";
+import useIsMobile from "../hooks/useIsMobile";
+import { FaBars } from "react-icons/fa"; // for hamburger icon
 
 function Dashboard() {
+  const isMobile = useIsMobile();
   const [filteredLawyers, setFilteredLawyers] = useState(lawyers);
+  const [sidebarOpen, setSidebarOpen] = useState(false); // toggle state for mobile
 
-const handleFilterChange = (filters) => {
-  let updated = [...lawyers];
+  const toggleSidebar = () => {
+    setSidebarOpen((prev) => !prev);
+  };
 
-  if (filters.type) {
-    updated = updated.filter((l) => l.type === filters.type);
-  }
+  const handleFilterChange = (filters) => {
+    let updated = [...lawyers];
 
-  if (filters.rating) {
-    updated = updated.filter((l) => l.rating >= parseInt(filters.rating));
-  }
+    if (filters.type) {
+      updated = updated.filter((l) => l.type === filters.type);
+    }
 
-  if (filters.location) {
-    updated = updated.filter((l) =>
-      l.location.toLowerCase().includes(filters.location.toLowerCase())
-    );
-  }
+    if (filters.rating) {
+      updated = updated.filter((l) => l.rating === parseInt(filters.rating));
+    }
 
-  if (filters.experience) {
-    const [min, max] = filters.experience.split("-").map(Number);
-    updated = updated.filter((l) => {
-      if (max) return l.experience >= min && l.experience <= max;
-      return l.experience >= min;
-    });
-  }
 
-  if (filters.gender) {
-    updated = updated.filter((l) => l.gender === filters.gender);
-  }
+    if (filters.location) {
+      updated = updated.filter((l) =>
+        l.location.toLowerCase().includes(filters.location.toLowerCase())
+      );
+    }
 
-  if (filters.price) {
-    updated = updated.sort((a, b) =>
-      filters.price === "low" ? a.price - b.price : b.price - a.price
-    );
-  }
+    if (filters.experience) {
+      const [min, max] = filters.experience.split("-").map(Number);
+      updated = updated.filter((l) => {
+        if (max) return l.experience >= min && l.experience <= max;
+        return l.experience >= min;
+      });
+    }
 
-  setFilteredLawyers(updated);
-};
+    if (filters.gender) {
+      updated = updated.filter((l) => l.gender === filters.gender);
+    }
+
+    if (filters.price) {
+      updated = updated.sort((a, b) =>
+        filters.price === "low" ? a.price - b.price : b.price - a.price
+      );
+    }
+
+    setFilteredLawyers(updated);
+  };
 
 
   return (
@@ -54,14 +63,35 @@ const handleFilterChange = (filters) => {
       {/* Particle Background */}
       <ParticleBackProfile />
 
-      {/* Fixed Sidebar */}
-      <div className="fixed top-0 left-0 h-full w-64 z-20">
-        <Sidebar />
-      </div>
+      {/* ✅ Hamburger Icon - only mobile */}
+      {isMobile && (
+        <button
+          onClick={toggleSidebar}
+          className="absolute top-4 left-4 z-50 bg-gray-800 p-2 rounded-md text-white md:hidden"
+        >
+          <FaBars size={20} />
+        </button>
+      )}
 
-      {/* Main Content */}
-      <div className="flex-1 p-8 ml-64 relative z-10">
-        <h1 className="text-3xl font-bold mb-10 text-center">Select Your Lawyer</h1>
+      {/* ✅ Sidebar - toggle based on view */}
+{isMobile ? (
+  sidebarOpen && (
+    <div className="fixed top-0 left-0 h-full w-64 z-40">
+      <Sidebar isOpen={true} />
+    </div>
+  )
+) : (
+  <div className="fixed top-0 left-0 h-full w-64 z-20">
+    <Sidebar isOpen={true} />
+  </div>
+)}
+
+
+      {/* ✅ Main Content */}
+      <div className={`flex-1 p-4 md:p-8 ${!isMobile ? "ml-64" : ""} relative z-10`}>
+        <h1 className="text-2xl md:text-3xl font-bold mb-6 text-center">
+          Select Your Lawyer
+        </h1>
 
         <div className="dashboard-content">
           <FilterBar onFilterChange={handleFilterChange} />
