@@ -5,6 +5,7 @@ import About from "./pages/About";
 import NLogin from "./pages/NLogin";
 import Dashboard from "./pages/Dashboard";
 import LawyerProfile from "./pages/LawyerProfile";
+import PeerVideoCall from "./Components/PeerVideoCall"; // 👈 Add this
 
 function App() {
   return (
@@ -15,7 +16,8 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/lawyer/:id" element={<LawyerProfile />} />
-        {/* About & Contact not included here yet */}
+        <Route path="/video-call" element={<PeerVideoCall />} /> {/* 👈 Needed */}
+
       </Routes>
      
     </Router>
