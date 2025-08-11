@@ -7,3 +7,11 @@
   height: 100vh; /* Make sure it covers full viewport height */
   width: 100%;
 }
+/* home.css */
+@keyframes glowPulse {
+  0% { text-shadow: 0 0 6px rgba(168,85,247,.6), 0 0 18px rgba(168,85,247,.25) }
+  50% { text-shadow: 0 0 10px rgba(168,85,247,.9), 0 0 26px rgba(168,85,247,.45) }
+  100% { text-shadow: 0 0 6px rgba(168,85,247,.6), 0 0 18px rgba(168,85,247,.25) }
+}
+.type-glow { animation: glowPulse 1.4s ease-in-out infinite }
+

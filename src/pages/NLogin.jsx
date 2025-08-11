@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import TransNavbarAbout from "../Components/TransNavbarAbout";
 import useIsMobile from "../hooks/useIsMobile";
 import { useNavigate } from "react-router-dom";
+import LawyerPopupForm from "../Components/LawyerPopupForm";
 
 import AnimatedGradientLogin from "./AnimatedGradientLogin";
 import "./Flip.css";
@@ -13,10 +14,21 @@ function NLogin() {
       const navigate = useNavigate();
 
 
+const [isLawyer, setIsLawyer] = useState(false);
+const [lawyerPopupOpen, setLawyerPopupOpen] = useState(false);
 
   const [isSignup, setIsSignup] = useState(false);
  const [isLoggedIn, setIsLoggedIn] = useState(false); // After login
 const [showClientForm, setShowClientForm] = useState(false); // After signup
+const handleSignup = () => {
+  if (isLawyer) {
+    // open the popup if user is a lawyer
+    setLawyerPopupOpen(true);
+  } else {
+    // normal client flow
+    navigate("/dashboard");
+  }
+};
 
 
   return (
@@ -125,19 +137,24 @@ const [showClientForm, setShowClientForm] = useState(false); // After signup
                   <input type="password" name="passwordSignup" id="passwordSignup" className="w-full p-2 border rounded" />
                 </div>
                 <div className="flex items-center">
-                  <input type="checkbox" id="isLawyer" className="mr-2" />
-                  <label htmlFor="isLawyer" className="text-sm">I am a lawyer</label>
-                </div>
+  <input
+    type="checkbox"
+    id="isLawyer"
+    className="mr-2"
+    checked={isLawyer}
+    onChange={(e) => setIsLawyer(e.target.checked)}
+  />
+  <label htmlFor="isLawyer" className="text-sm">I am a lawyer</label>
+</div>
+
 <button
   type="button"
-  onClick={() => {
-  navigate("/dashboard"); // ✅ Redirect to lawyer selection page after signup
-}}
-
+  onClick={handleSignup}
   className="sign w-full bg-green-600 text-white py-2 rounded hover:bg-green-700"
 >
   Sign Up
 </button>
+
 
               </form>
               <p className="signup mt-6 text-sm text-center">
@@ -199,6 +216,15 @@ const [showClientForm, setShowClientForm] = useState(false); // After signup
 
     )}
       </div>
+      <LawyerPopupForm
+  isOpen={lawyerPopupOpen}
+  onClose={() => setLawyerPopupOpen(false)}
+  onDone={(profile) => {
+    // optional: save or send profile
+    // localStorage.setItem("advai:lawyerProfile", JSON.stringify(profile));
+    navigate("/dashboard"); // go after popup submit
+  }}
+/>
 
     </AnimatedGradientLogin>
   );
