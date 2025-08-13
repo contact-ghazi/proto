@@ -1,0 +1,53 @@
+/* Desktop rail */
+.rail {
+  position: fixed; top: 0; left: 0; height: 100dvh;
+  width: 72px; background: #0d0d14; border-right: 1px solid rgba(255,255,255,.06);
+  display: flex; flex-direction: column; gap: 10px; z-index: 10;
+  transition: width .22s ease;
+}
+.rail.open { width: 220px; }
+
+.brand { display: flex; align-items: center; gap: 10px; padding: 14px 12px; }
+.logo {
+  width: 36px; height: 36px; border-radius: 12px;
+  display:grid; place-items:center; font-weight: 800;
+  color:#fff; background: linear-gradient(45deg,#7c3aed,#a855f7);
+  box-shadow: 0 6px 16px rgba(168,85,247,.35);
+}
+.brand-name { font-weight: 800; letter-spacing:.2px; color:#efeaff; }
+
+.rail-items { display: flex; flex-direction: column; gap: 6px; padding: 4px; }
+.rail-btn {
+  position: relative; display:flex; align-items:center; gap: 12px;
+  padding: 10px 12px; color:#d6d6e6; border-radius: 12px; border:1px solid transparent;
+  background: transparent; transition: background .18s ease, color .18s ease, border-color .18s ease;
+}
+.rail-btn:hover { background: rgba(255,255,255,.06); color:#fff; border-color: rgba(168,85,247,.28); }
+.rail-btn.is {
+  background: linear-gradient(45deg, rgba(124,58,237,.22), rgba(168,85,247,.22));
+  border-color: rgba(168,85,247,.45); color:#fff;
+}
+
+/* Tooltips when collapsed */
+.rail .tooltip {
+  position: absolute; left: 70px; top: 50%; transform: translateY(-50%);
+  padding: 6px 8px; border-radius: 8px; font-size: 12px;
+  background:#141420; color:#fff; border:1px solid rgba(255,255,255,.12);
+  opacity: 0; pointer-events:none; transition: opacity .15s ease;
+  white-space: nowrap;
+}
+.rail:not(.open) .rail-btn:hover .tooltip { opacity: 1; }
+
+/* Mobile bottom tab bar */
+.tabbar {
+  position: fixed; left:0; right:0; bottom:0; z-index: 40;
+  background: rgba(12,12,18,.92); backdrop-filter: blur(10px);
+  border-top:1px solid rgba(255,255,255,.08);
+  display:grid; grid-template-columns: repeat(5,1fr); gap: 2px; padding: 8px 8px 10px;
+}
+.tab {
+  display:flex; flex-direction:column; align-items:center; gap:4px;
+  color:#cfcfe2; padding:8px 6px; border-radius: 10px; border:1px solid transparent;
+}
+.tab.is { color:#fff; background: rgba(168,85,247,.15); border-color: rgba(168,85,247,.45); }
+.tab span { font-size: 10.5px; }

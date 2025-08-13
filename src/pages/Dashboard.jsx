@@ -1,152 +1,153 @@
-import Sidebar from "../Components/Sidebar";
-import { motion } from "framer-motion";
+// src/pages/Dashboard.jsx
+import React, { useMemo, useState } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import {
+  Filter, MapPin, Star, MessageSquare, Phone, ChevronDown
+} from "lucide-react";
 import { lawyers } from "../data/lawyers";
-import { FaStar } from "react-icons/fa";
-import ParticleBackProfile from "../Components/Particlebackprofile";
 import "./Dashboard.css";
-import FilterBar from "../Components/FilterBar";
-import { useState } from "react";
-import useIsMobile from "../hooks/useIsMobile";
-import { FaBars } from "react-icons/fa"; // for hamburger icon
 
-function Dashboard() {
-  const isMobile = useIsMobile();
-  const [filteredLawyers, setFilteredLawyers] = useState(lawyers);
-  const [sidebarOpen, setSidebarOpen] = useState(false); // toggle state for mobile
+export default function Dashboard() {
+  const nav = useNavigate();
+  const { pathname } = useLocation();
 
-  const toggleSidebar = () => {
-    setSidebarOpen((prev) => !prev);
+  // simple filters (mock)
+  const [type, setType] = useState("All");
+  const [rating, setRating] = useState("Any");
+  const [loc, setLoc] = useState("Anywhere");
+  const [price, setPrice] = useState("Any");
+  const [exp, setExp] = useState("Any");
+  const [gender, setGender] = useState("Any");
+
+  const chips = ["Property", "Criminal", "Family", "Corporate", "Documentation"];
+
+  const filtered = useMemo(() => {
+    // hook up real filter logic if you like—keeping demo simple
+    return (lawyers || []).slice(0, 20);
+  }, [type, rating, loc, price, exp, gender]);
+
+  const openCall = (id, mode = "video") => {
+    nav(`/dashboard/call/active?with=${id}&type=${mode}`);
   };
-
-  const handleFilterChange = (filters) => {
-    let updated = [...lawyers];
-
-    if (filters.type) {
-      updated = updated.filter((l) => l.type === filters.type);
-    }
-
-    if (filters.rating) {
-      updated = updated.filter((l) => l.rating === parseInt(filters.rating));
-    }
-
-
-    if (filters.location) {
-      updated = updated.filter((l) =>
-        l.location.toLowerCase().includes(filters.location.toLowerCase())
-      );
-    }
-
-    if (filters.experience) {
-      const [min, max] = filters.experience.split("-").map(Number);
-      updated = updated.filter((l) => {
-        if (max) return l.experience >= min && l.experience <= max;
-        return l.experience >= min;
-      });
-    }
-
-    if (filters.gender) {
-      updated = updated.filter((l) => l.gender === filters.gender);
-    }
-
-    if (filters.price) {
-      updated = updated.sort((a, b) =>
-        filters.price === "low" ? a.price - b.price : b.price - a.price
-      );
-    }
-
-    setFilteredLawyers(updated);
-  };
-
 
   return (
-    <div className="relative flex min-h-screen bg-gradient-to-br from-gray-900 to-black text-white overflow-hidden">
-      {/* Particle Background */}
-      <ParticleBackProfile />
+    <main className="shell">
+      <section className="container-xx">
+        {/* HERO */}
+        <div className="hero">
+          <div className="hero-title">Top lawyers near you</div>
+          <div className="hero-sub">Handpicked • Verified • Fast response</div>
+        </div>
 
-      {/* ✅ Hamburger Icon - only mobile */}
-      {isMobile && (
-        <button
-          onClick={toggleSidebar}
-          className="absolute top-4 left-4 z-50 bg-gray-800 p-2 rounded-md text-white md:hidden"
-        >
-          <FaBars size={20} />
-        </button>
-      )}
+        {/* CATEGORY CHIPS */}
+        <div className="chips" style={{ marginBottom: 10 }}>
+          {chips.map((c) => (
+            <button key={c} className="chip">{c}</button>
+          ))}
+        </div>
 
-      {/* ✅ Sidebar - toggle based on view */}
-{isMobile ? (
-  sidebarOpen && (
-    <div className="fixed top-0 left-0 h-full w-64 z-40">
-      <Sidebar isOpen={true} />
-    </div>
-  )
-) : (
-  <div className="fixed top-0 left-0 h-full w-64 z-20">
-    <Sidebar isOpen={true} />
-  </div>
-)}
+        {/* FILTER BAR */}
+        <div className="filter-card panel">
+          <div className="filter-head">
+            <Filter size={18} />
+            <span>Filter Lawyers</span>
+          </div>
 
-
-      {/* ✅ Main Content */}
-      <div className={`flex-1 p-4 md:p-8 ${!isMobile ? "ml-64" : ""} relative z-10`}>
-        <h1 className="text-2xl md:text-3xl font-bold mb-6 text-center">
-          Select Your Lawyer
-        </h1>
-
-        <div className="dashboard-content">
-          <FilterBar onFilterChange={handleFilterChange} />
-
-          <div className="lawyer-list">
-            {filteredLawyers.map((lawyer) => (
-              <motion.div
-                key={lawyer.id}
-                className="lawyer-card"
-                whileHover={{ scale: 1.02, boxShadow: "0 0 30px rgba(168, 85, 247, 0.7)" }}
-                transition={{ duration: 0.3 }}
-              >
-                {/* Left Image */}
-                <div className="lawyer-img">
-                  <img src={lawyer.image} alt={lawyer.name} />
-                </div>
-
-                {/* Right Info */}
-                <div className="lawyer-info">
-                  <h2>{lawyer.name}</h2>
-                  <p className="lawyer-type">{lawyer.type} Lawyer</p>
-                  <p className="experience">{lawyer.experience} Years Experience</p>
-                  <p className="specialization">
-                    Specialization: {lawyer.specialization || "Corporate Law"}
-                  </p>
-                  <p className="email">
-                    Email: {lawyer.email || "john.smith@lawfirm.com"}
-                  </p>
-                  <p className="bio">
-                    {lawyer.bio ||
-                      "Expert in handling complex cases. Passionate about client success and delivering results."}
-                  </p>
-                  <div className="rating">
-                    {[...Array(5)].map((_, i) => (
-                      <FaStar
-                        key={i}
-                        className={i < lawyer.rating ? "star active" : "star"}
-                      />
-                    ))}
-                  </div>
-                  <motion.button
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="select-btn"
-                  >
-                    Select
-                  </motion.button>
-                </div>
-              </motion.div>
-            ))}
+          <div className="filter-row">
+            <Select value={type} onChange={setType} label="Type" />
+            <Select value={rating} onChange={setRating} label="Rating" />
+            <Select value={loc} onChange={setLoc} label="Location" />
+            <Select value={price} onChange={setPrice} label="Price" />
+            <Select value={exp} onChange={setExp} label="Experience" />
+            <Select value={gender} onChange={setGender} label="Gender" />
           </div>
         </div>
-      </div>
-    </div>
+
+        {/* LAWYER LIST */}
+        <div className="list">
+          {filtered.map((l) => (
+            <article className="lawyer-card" key={l.id}>
+              <img
+                className="lawyer-ava"
+                src={l.image || "/assets/placeholder-avatar.png"}
+                alt={l.name}
+                onError={(e) => {
+                  e.currentTarget.src = "/assets/placeholder-avatar.png";
+                }}
+              />
+
+              <div className="lawyer-main">
+                <div className="lawyer-name">
+                  <Link to={`/lawyer/${l.id}`} style={{ color: "inherit", textDecoration: "none" }}>
+                    {l.name}
+                  </Link>
+                </div>
+
+                <div className="lawyer-sub">
+                  <span>{l.specialization || l.type || "Lawyer"}</span>
+                  <span>•</span>
+                  <span className="flex row" style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+                    <MapPin size={14} />
+                    {l.location || l.city || "—"}
+                  </span>
+                  <span className="badge">{l.experience || l.exp || "—"} yrs exp</span>
+                  <span className="badge money">₹ {l.fee || l.price || "—"}/consult</span>
+                </div>
+
+                <div style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 8 }}>
+                  {renderStars(l.rating || 4.5)}
+                  <span style={{ fontSize: 13, opacity: 0.9 }}>{(l.rating || 4.5).toFixed(1)}</span>
+                  <span style={{ marginInline: 8, opacity: 0.5 }}>•</span>
+                  <span style={{ fontSize: 13, opacity: 0.9 }}>Replies in 5–15 min</span>
+                </div>
+              </div>
+
+              <div className="lawyer-actions">
+                <Link className="btn ghost" to={`/dashboard/chat?with=${l.id}`}>
+                  <MessageSquare size={16} />&nbsp;Chat
+                </Link>
+                <button className="btn primary" onClick={() => openCall(l.id, "video")}>
+                  <Phone size={16} />&nbsp;Call
+                </button>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+    </main>
   );
 }
 
-export default Dashboard;
+/* ---------------- Small helpers ---------------- */
+
+function renderStars(value) {
+  // draw out of 5 with halves if you want—keeping full stars for simplicity
+  const full = Math.round(Math.min(5, Math.max(0, value)));
+  return (
+    <span style={{ display: "inline-flex", gap: 3 }}>
+      {new Array(5).fill(0).map((_, i) => (
+        <Star
+          key={i}
+          size={14}
+          fill={i < full ? "#facc15" : "transparent"}
+          color={i < full ? "#facc15" : "rgba(255,255,255,.45)"}
+        />
+      ))}
+    </span>
+  );
+}
+
+function Select({ value, onChange, label }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <button
+      className="btn ghost"
+      style={{ justifyContent: "space-between", display: "flex", alignItems: "center" }}
+      onClick={() => setOpen((v) => !v)}
+      title={label}
+    >
+      <span>{label === "Type" ? value : label}</span>
+      <ChevronDown size={16} />
+    </button>
+  );
+}
