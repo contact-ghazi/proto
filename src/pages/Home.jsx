@@ -5,7 +5,7 @@ import TransNavbar from "../Components/TransNavbar";
 import FeaturesSection from "../Components/FeaturesSection";
 import ImmediateConsult2 from "../Components/ImmediateConsult2";
 import AboutCompany from "../Components/AboutCompany";
-import Footer from "./Pages/Footer";
+import Footer from "../Components/Footer";
 import TypeWriter from "../Components/TypeWriter";
 
 import { MessageSquare, Info, UserSearch, LogIn, ShieldCheck, Zap, CreditCard } from "lucide-react";
